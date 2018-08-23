@@ -20,8 +20,6 @@ class DealItem extends Component {
   };
 
   _handlePress = () => {
-    console.log('you pressed');
-    console.log(this.props.deal.key);
     this.props.onPress(this.props.deal.key);
   }
 

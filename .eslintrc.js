@@ -25,5 +25,6 @@ module.exports = {
     semi: ['error', 'always'],
     'no-console': ['warn', { allow: ['info', 'error'] }],
     'arrow-parens': ['error', 'always'],
+    'prefer-const': 'warn'
   },
 };
