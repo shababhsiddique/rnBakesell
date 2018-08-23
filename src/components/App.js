@@ -18,11 +18,7 @@ export default class App extends Component {
 
   async componentDidMount(){
     const initDeals = await ajax.fetchInitialDeals();
-    this.setState( ()=>{
-      return {
-        deals: initDeals
-      };
-    });
+    this.setState({deals: initDeals});
   }
 
   render() {
