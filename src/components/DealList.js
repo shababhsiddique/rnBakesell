@@ -5,15 +5,17 @@ import PropTypes from 'prop-types';
 
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
 } from 'react-native';
+
+import DealItem from './DealItem';
 
 class DealList extends Component {
 
   static propTypes = {
     deals: PropTypes.array.isRequired,
+    onItemPress: PropTypes.func.isRequired,
   }
 
   render() {
@@ -21,7 +23,10 @@ class DealList extends Component {
       <View style={styles.list}>
         <FlatList
           data={this.props.deals}
-          renderItem={({item}) => <Text style={styles.listItem}>{item.title}</Text>}
+          renderItem={({item}) => <DealItem
+            deal={item}
+            onPress = {this.props.onItemPress}
+          />}
         />
       </View>
     );
@@ -31,16 +36,10 @@ class DealList extends Component {
 const styles = StyleSheet.create({
   list: {
     paddingTop: 30,
-    backgroundColor: '#F7F7F6',
+    backgroundColor: '#F5F7F4',
     flex: 1,
     width: '100%'
-  },
-  listItem: {
-    padding: 30
-  },
-  dealContainer: {
-
-  },
+  }
 });
 
 export default DealList;

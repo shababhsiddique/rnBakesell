@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import DealList from './DealList';
+import DealDetail from './DealDetail';
 
 import ajax from '../ajax';
 
@@ -14,6 +15,7 @@ export default class App extends Component {
 
   state = {
     deals: [],
+    currentDealId: null,
   };
 
   async componentDidMount(){
@@ -21,14 +23,34 @@ export default class App extends Component {
     this.setState({deals: initDeals});
   }
 
+  _setCurrentDeal = (dealId) => {
+      this.setState({
+        currentDealId: dealId
+      });
+  }
+
+  _getCurrentDeal = () => {
+    return this.state.deals.find(
+        (deal) => deal.key === this.state.currentDealId
+    );
+  }
+
   render() {
+
+
+    if(this.state.currentDealId){
+      return (<DealDetail
+        initialDealData = {this._getCurrentDeal()}
+      />);
+    }else if(this.state.deals.length >0){
+      return (<DealList
+        deals = {this.state.deals}
+        onItemPress = {this._setCurrentDeal}
+      />);
+    }
     return (
       <View style={styles.container}>
-        {this.state.deals.length > 0 ?(
-            <DealList deals = {this.state.deals}/>
-          ):(
-            <Text style={styles.header}>Bakesell</Text>
-          )}
+        <Text style={styles.header}>Bakesell</Text>
       </View>
     );
   }
