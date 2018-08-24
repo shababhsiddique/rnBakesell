@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   ScrollView,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 
@@ -17,6 +18,7 @@ class DealDetail extends Component {
 
   static propTypes = {
     initialDealData: PropTypes.object.isRequired,
+    onBack: PropTypes.func.isRequired,
   };
 
   state = {
@@ -35,29 +37,36 @@ class DealDetail extends Component {
     const {deal} = this.state;
 
     return (
-      <ScrollView  style={styles.detailContainer}>
-        <Image
-          source={{ uri: deal.media[0]}}
-          style={styles.image}
-        />
-        <Text style={styles.title}>{deal.title}</Text>
-        <View style={styles.info}>
-          <View style={styles.subtitle}>
-            <Text style={styles.cause}>{deal.cause.name}</Text>
-            <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
-          </View>
-        </View>
-        {deal.user && (<View style={styles.user}>
+      <View>
+        <TouchableOpacity
+          onPress={this.props.onBack}
+          >
+          <Text style={styles.backLink}> Back </Text>
+        </TouchableOpacity>
+        <ScrollView  style={styles.detailContainer}>
           <Image
-            source={{uri: deal.user.avatar}}
-            style={styles.avatar}
+            source={{ uri: deal.media[0]}}
+            style={styles.image}
           />
-          <Text>{deal.user.name}</Text>
-        </View>)}
-        <View style={styles.desc}>
-          <Text style={styles.desctext}>{deal.description}</Text>
-        </View>
-      </ScrollView >
+          <Text style={styles.title}>{deal.title}</Text>
+          <View style={styles.info}>
+            <View style={styles.subtitle}>
+              <Text style={styles.cause}>{deal.cause.name}</Text>
+              <Text style={styles.price}>{priceDisplay(deal.price)}</Text>
+            </View>
+          </View>
+          {deal.user && (<View style={styles.user}>
+            <Image
+              source={{uri: deal.user.avatar}}
+              style={styles.avatar}
+            />
+            <Text>{deal.user.name}</Text>
+          </View>)}
+          <View style={styles.desc}>
+            <Text style={styles.desctext}>{deal.description}</Text>
+          </View>
+        </ScrollView >
+      </View>
     );
   }
 }
@@ -66,8 +75,20 @@ const styles = StyleSheet.create({
   detailContainer:{
     backgroundColor: '#FAF9FA',
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 5,
     elevation: 5,
+  },
+  backLink: {
+    marginTop: 35,
+    marginBottom: 5,
+    marginLeft: 10,
+    height: 30,
+    width: 50,
+    textAlign: 'left',
+    fontSize: 13,
+    padding: 7,
+    color: '#4F95E0',
+    fontWeight: 'bold'
   },
   info: {
     padding: 10,

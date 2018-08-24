@@ -35,7 +35,6 @@ class DealList extends Component {
 
 const styles = StyleSheet.create({
   list: {
-    paddingTop: 30,
     backgroundColor: '#F5F7F4',
     flex: 1,
     width: '100%'

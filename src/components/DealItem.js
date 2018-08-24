@@ -51,7 +51,6 @@ class DealItem extends Component {
 const styles = StyleSheet.create({
   dealContainer:{
     backgroundColor: '#FAF9FA',
-    marginHorizontal: 20,
     marginVertical: 10,
     elevation: 5,
   },
