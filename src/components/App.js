@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Easing,
+  Animated,
+  Dimensions,
   StyleSheet,
 } from 'react-native';
 
@@ -14,13 +17,36 @@ import ajax from '../ajax';
 
 export default class App extends Component {
 
+  titleXPos =  new Animated.Value(0);
+
   state = {
     deals: [],
     dealsFromSearch: [],
     currentDealId: null,
   };
 
+  animateTitle = (direction = 1) => {
+    console.log('animating');
+    const width = Dimensions.get('window').width -150;
+    Animated.timing(
+      this.titleXPos,
+      {
+        toValue: direction*width/2,
+        duration: 1000,
+        easing: Easing.ease,
+      }
+    ).start( ({finished}) => {
+      //if previous animation finished successfully
+      if(finished){
+          this.animateTitle(direction * -1);
+      }
+    });
+  }
+
   async componentDidMount(){
+
+    this.animateTitle();
+
     const initDeals = await ajax.fetchInitialDeals();
     this.setState({deals: initDeals});
   }
@@ -32,7 +58,6 @@ export default class App extends Component {
     }
     this.setState({dealsFromSearch: searchResults});
   }
-
 
   _setCurrentDeal = (dealId) => {
       this.setState({
@@ -75,9 +100,9 @@ export default class App extends Component {
       </View>);
     }
     return (
-      <View style={styles.container}>
+      <Animated.View style={[{ left:this.titleXPos },styles.container]}>
         <Text style={styles.header}>Bakesell</Text>
-      </View>
+      </Animated.View>
     );
   }
 }

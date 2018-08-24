@@ -43,11 +43,11 @@ class DealDetail extends Component {
           >
           <Text style={styles.backLink}> Back </Text>
         </TouchableOpacity>
+        <Image
+          source={{ uri: deal.media[0]}}
+          style={styles.image}
+        />
         <ScrollView  style={styles.detailContainer}>
-          <Image
-            source={{ uri: deal.media[0]}}
-            style={styles.image}
-          />
           <Text style={styles.title}>{deal.title}</Text>
           <View style={styles.info}>
             <View style={styles.subtitle}>
@@ -74,9 +74,6 @@ class DealDetail extends Component {
 const styles = StyleSheet.create({
   detailContainer:{
     backgroundColor: '#FAF9FA',
-    marginHorizontal: 20,
-    marginVertical: 5,
-    elevation: 5,
   },
   backLink: {
     marginTop: 35,
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150,
+    height: 200,
   },
   title: {
     fontSize: 16,
